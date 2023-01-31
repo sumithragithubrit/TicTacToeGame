@@ -16,7 +16,10 @@ public class TicTacToeGame {
         allowPlayer();
     }
     public static void createEmptyBoard(){
-
+        if (turn==4) {
+            char[] ar = {49,50,51,52,53,54,55,56,57,58};
+            arr=ar;
+        }
         System.out.println(" ____________");
         for (int i = 1; i <=9; i++){
             System.out.print("|___");
@@ -47,7 +50,6 @@ public class TicTacToeGame {
         }
     }
     public static void showBoard(){
-
         System.out.println(" ____________");
         for (int i = 1; i <=9; i++){
             System.out.print("|_"+arr[i-1]+"_");
@@ -106,10 +108,10 @@ public class TicTacToeGame {
                 //block player
 
                 else if (arr[1] == 'X' && arr[2]=='X' && arr[0] !='O' || arr[3]=='X'&& arr[6]=='X' && arr[0] !='O'
-                        || arr[4]=='X' && arr[8]=='X' && arr[0] !='O') {
+                        || arr[4]=='X' && arr[8]=='X' && arr[0] !='O' ) {
                     checkDuplicate(0,comp);
                 }
-                else if (arr[0] == 'X'&& arr[2]=='X' && arr[1] !='O'|| arr[4]=='X' && arr[7]!='X'&& arr[1] !='O'){
+                else if (arr[0] == 'X'&& arr[2]=='X' && arr[1] !='O'|| arr[4]=='X' && arr[7]=='X'&& arr[1] !='O'){
                     checkDuplicate(1,comp);
                 }else if (arr[0] == 'X'&& arr[1]=='X' && arr[2]!='O' || arr[4]=='X'&& arr[6]=='X' && arr[2]!='O'
                         || arr[5]=='X' && arr[8]=='X' && arr[2]!='O') {
@@ -160,11 +162,10 @@ public class TicTacToeGame {
         int choice = sc.nextInt();
         if (random == choice){
             System.out.println("Heads");
-
-        }else if (random ==choice){
-            System.out.println("tail");
-        }else {
+        }else if( choice > 2) {
             System.out.println("Choose correct option 1 or 2");
+        }else  {
+            System.out.println("tail");
         }
     }
     public static void  winnerOrTieOrChangeTurn() {
@@ -174,7 +175,6 @@ public class TicTacToeGame {
                 || arr[0] == 'X' && arr[4] == 'X' && arr[8] == 'X' || arr[6] == 'X' && arr[4] == 'X' && arr[2] == 'X')
         {
             System.out.println("Player is winner");
-            turn = 15 ;
             playAgain();
         }else if (arr[0] == 'O' && arr[1] == 'O' && arr[2] == 'O' || arr[0] == 'O' && arr[3] == 'O' && arr[6] == 'O'
                 || arr[1] == 'O' && arr[4] == 'O' && arr[7] == 'O'|| arr[2] == 'O' && arr[5] == 'O' && arr[8] == 'O'
@@ -182,7 +182,6 @@ public class TicTacToeGame {
                 || arr[0] == 'O' && arr[4] == 'O' && arr[8] == 'O' || arr[6] == 'O' && arr[4] == 'O' && arr[2] == 'O')
         {
             System.out.println("computer is winner ");
-            turn = 15 ;
             playAgain();
             while(turn!=15) {
                 makeMove(player, comp);
@@ -191,7 +190,6 @@ public class TicTacToeGame {
 
         }else if ( turn == 11 ) {
             System.out.println("Tie the game ");
-            turn = 15 ;
             playAgain();
             while(turn!=15) {
                 makeMove(player, comp);
@@ -206,14 +204,14 @@ public class TicTacToeGame {
         int option = sc.nextInt();
         if ( option == 1 ){
             System.out.println("Start the game ");
+            turn = 4;
             createEmptyBoard();
             allowPlayer();
 
         }else{
-            System.out.println("Stop the game");
+            System.out.println("Thanks i have enjoyed play with you !!");
+            turn = 15;
         }
 
     }
-
-
 }
