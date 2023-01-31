@@ -44,8 +44,8 @@ public class TicTacToeGame {
             makeMove(player, comp);
         }
     }
-    
     public static void showBoard(){
+
         System.out.println(" ____________");
         for (int i = 1; i <=9; i++){
             System.out.print("|_"+arr[i-1]+"_");
@@ -54,9 +54,9 @@ public class TicTacToeGame {
             }
         }
     }
-    
     public static void makeMove(char player,char comp){
         Scanner sc = new Scanner(System.in);
+
             if ( turn%2==0){
                 System.out.println(" player enter your position number in between 1 to 9 ");
                 int num = sc.nextInt();
@@ -70,5 +70,6 @@ public class TicTacToeGame {
                 showBoard();
                 turn++;
             }
+            
     }
 }
