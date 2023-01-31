@@ -40,7 +40,9 @@ public class TicTacToeGame {
             player='O';
             comp='X';
         }
-        while(turn!=9) {
+        whoPlayFirst();
+        while(turn!=15) {
+
             makeMove(player, comp);
         }
     }
@@ -60,16 +62,44 @@ public class TicTacToeGame {
             if ( turn%2==0){
                 System.out.println(" player enter your position number in between 1 to 9 ");
                 int num = sc.nextInt();
-                arr[num-1]=player;
-                showBoard();
-                turn++;
+                if(arr[num-1]=='X' || arr[num-1]=='O'){
+                    System.out.println("This position is not empty");
+
+                }else {
+                    arr[num-1]=player;
+                    showBoard();
+                    turn++;
+                }
+
+
             }else {
                 Random random = new Random();
-                int num = random.nextInt(9) +1;
-                arr[num+1] =comp;
-                showBoard();
-                turn++;
+                int num = random.nextInt(10) + 1;
+                if(arr[num-1]=='X' || arr[num-1]=='O') {
+                    System.out.println("This position is not empty");
+                }else {
+                    arr[num - 1] = comp;
+                    showBoard();
+                    turn++;
+                }
+
             }
-            
+
     }
+    public static void whoPlayFirst(){
+        Random num = new Random();
+        int random= num.nextInt(2) +1;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("I am doing a toss choose head or tail\n press 1 for Head & press 2 for Tail");
+        int choice = sc.nextInt();
+        if (random == choice){
+            System.out.println("Heads");
+
+        }else if (random ==choice){
+            System.out.println("tail");
+        }else {
+            System.out.println("Choose correct option 1 or 2");
+        }
+    }
+
 }
