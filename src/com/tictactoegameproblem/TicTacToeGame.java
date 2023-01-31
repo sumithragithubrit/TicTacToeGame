@@ -11,9 +11,8 @@ public class TicTacToeGame {
     static int count = 0 ;
     public static void main(String[] args) {
         System.out.println("Welcome in tic tac toy ");
-       createEmptyBoard();
-       allowPlayer();
-
+        createEmptyBoard();
+        allowPlayer();
     }
     public static void createEmptyBoard(){
 
@@ -24,7 +23,6 @@ public class TicTacToeGame {
                 System.out.println("|");
             }
         }
-
     }
     public static void allowPlayer(){
         System.out.println("Enter your choice if wont 'X' then press 1 & if you wont 'O' then press 2");
@@ -60,34 +58,58 @@ public class TicTacToeGame {
     }
     public static void makeMove(char player,char comp){
         Scanner sc = new Scanner(System.in);
-            if ( turn%2==0){
-                System.out.println(" player enter your position number in between 1 to 9 ");
-                int num = sc.nextInt();
-                if(arr[num-1]=='X' || arr[num-1]=='O'){
-                    System.out.println("This position is not empty");
-
-                }else {
-                    arr[num-1]=player;
-                    showBoard();
-                    turn++;
-                    winnerOrTieOrChangeTurn();
-                }
-
-
+        if ( turn%2==0){
+            System.out.println(" player enter your position number in between 1 to 9 ");
+            int num = sc.nextInt();
+            if(!checkDuplicate(num-1,player)){
+                System.out.println("This position is not empty");
             }else {
-                Random random = new Random();
-                 num = random.nextInt(9) + 1;
-                if(arr[num-1]=='X' || arr[num-1]=='O') {
-                   // System.out.println("This position is not empty");
-                }else {
-                    arr[num - 1] = comp;
-                    showBoard();
-                    turn++;
-                    winnerOrTieOrChangeTurn();
-                }
-
+                checkDuplicate(num-1,player);
             }
-
+        }else {
+            Random random = new Random();
+            num = random.nextInt(9) + 1;
+            if(!checkDuplicate(num-1,comp)) {
+                // System.out.println("This position is not empty");
+            }else {
+                if (arr[1] == 'O' && arr[2]=='O' || arr[3]=='O'&& arr[6]=='O' || arr[4]=='O' && arr[8]=='O') {
+                    checkDuplicate(0,comp);
+                }
+                else if (arr[0] == 'O'&& arr[2]=='O' || arr[4]=='O' && arr[7]!='X'){
+                    checkDuplicate(1,comp);
+                }else if (arr[0] == 'O'&& arr[1]=='O' || arr[4]=='O'&& arr[6]=='O' || arr[5]=='O' && arr[8]=='O') {
+                    checkDuplicate(2,comp);
+                }
+                else if (arr[0] == 'O'&& arr[6]=='O'|| arr[4] == 'O'&& arr[5]=='O' ) {
+                    checkDuplicate(3,comp);
+                }else if (arr[3] == 'O'&& arr[5]=='O' || arr[1] == 'O'&& arr[7]=='O' || arr[0] == 'O'&& arr[8]=='O'
+                        || arr[2] == 'O'&& arr[6]=='O') {
+                    checkDuplicate(4,comp);
+                }else if (arr[2] == 'O'&& arr[8]=='O' || arr[3] == 'O'&& arr[4]=='O' ) {
+                    checkDuplicate(5,comp);
+                }else if (arr[0] == 'O'&& arr[3]=='O' || arr[7]=='O'&& arr[8]=='O' || arr[4]=='O' && arr[2]=='O') {
+                    checkDuplicate(6,comp);
+                }else if (arr[6] == 'O'&& arr[8]=='O' || arr[1] == 'O'&& arr[4]=='O') {
+                    checkDuplicate(7,comp);
+                }else if (arr[6] == 'O'&& arr[7]=='O' || arr[2]=='O'&& arr[5]=='O' || arr[0]=='O' && arr[4]=='O') {
+                    checkDuplicate(8,comp);
+                }
+                else {
+                    checkDuplicate(num-1,comp);
+                }
+            }
+        }
+    }
+    public static boolean checkDuplicate(int p,char choice){
+        if(arr[p]=='X' || arr[p]=='O'){
+            return false;
+        }else{
+            arr[p]=choice;
+            showBoard();
+            turn++;
+            winnerOrTieOrChangeTurn();
+        }
+        return true;
     }
     public static void whoPlayFirst(){
         Random num = new Random();
@@ -104,31 +126,25 @@ public class TicTacToeGame {
             System.out.println("Choose correct option 1 or 2");
         }
     }
+    public static void winnerOrTieOrChangeTurn() {
+        if (arr[0] == 'X' && arr[1] == 'X' && arr[2] == 'X' || arr[0] == 'X' && arr[3] == 'X' && arr[6] == 'X'
+                || arr[1] == 'X' && arr[4] == 'X' && arr[7] == 'X'|| arr[2] == 'X' && arr[5] == 'X' && arr[8] == 'X'
+                || arr[3] == 'X' && arr[4] == 'X' && arr[5] == 'X' || arr[6] == 'X' && arr[7] == 'X' && arr[8] == 'X'
+                || arr[0] == 'X' && arr[4] == 'X' && arr[8] == 'X' || arr[6] == 'X' && arr[4] == 'X' && arr[2] == 'X')
+        {
+            System.out.println("Player is winner");
+            turn = 15 ;
+        }else if (arr[0] == 'O' && arr[1] == 'O' && arr[2] == 'O' || arr[0] == 'O' && arr[3] == 'O' && arr[6] == 'O'
+                || arr[1] == 'O' && arr[4] == 'O' && arr[7] == 'O'|| arr[2] == 'O' && arr[5] == 'O' && arr[8] == 'O'
+                || arr[3] == 'O' && arr[4] == 'O' && arr[5] == 'O' || arr[6] == 'O' && arr[7] == 'O' && arr[8] == 'O'
+                || arr[0] == 'O' && arr[4] == 'O' && arr[8] == 'O' || arr[6] == 'O' && arr[4] == 'O' && arr[2] == 'O')
+        {
+            System.out.println("computer is winner ");
+            turn = 15 ;
 
-     public static void winnerOrTieOrChangeTurn() {
-         if (arr[0] == 'X' && arr[1] == 'X' && arr[2] == 'X' || arr[0] == 'X' && arr[3] == 'X' && arr[6] == 'X'
-                 || arr[1] == 'X' && arr[4] == 'X' && arr[7] == 'X'|| arr[2] == 'X' && arr[5] == 'X' && arr[8] == 'X'
-                 || arr[3] == 'X' && arr[4] == 'X' && arr[5] == 'X' || arr[6] == 'X' && arr[7] == 'X' && arr[8] == 'X'
-                 || arr[0] == 'X' && arr[4] == 'X' && arr[8] == 'X' || arr[6] == 'X' && arr[4] == 'X' && arr[2] == 'X')
-         {
-
-             System.out.println("Player is winner");
-             turn = 15 ;
-
-         } else if (arr[0] == 'O' && arr[1] == 'O' && arr[2] == 'O' || arr[0] == 'O' && arr[3] == 'O' && arr[6] == 'O'
-                 || arr[1] == 'O' && arr[4] == 'O' && arr[7] == 'O'|| arr[2] == 'O' && arr[5] == 'O' && arr[8] == 'O'
-                 || arr[3] == 'O' && arr[4] == 'O' && arr[5] == 'O' || arr[6] == 'O' && arr[7] == 'O' && arr[8] == 'O'
-                 || arr[0] == 'O' && arr[4] == 'O' && arr[8] == 'O' || arr[6] == 'O' && arr[4] == 'O' && arr[2] == 'O')
-         {
-             System.out.println("computer is winner is winner");
-             turn = 15 ;
-
-         }
-
-         else if ( turn == 11 ) {
-
-             System.out.println("Tie the game ");
-             turn = 15 ;
-         }
-     }
+        }else if ( turn == 11 ) {
+            System.out.println("Tie the game ");
+            turn = 15 ;
+        }
+    }
 }
